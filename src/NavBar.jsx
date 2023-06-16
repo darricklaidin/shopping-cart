@@ -1,10 +1,13 @@
+import ShoppingCartIcon from './ShoppingCartIcon'
+
 const NavBar = () => {
   return (
     <nav>
       <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/store">Store</a></li>
-        <li><a href="/cart">0 (cart icon)</a></li>
+        <li>Home</li>
+        <li>Store</li>
+        <li>0* <ShoppingCartIcon height="32px" width="32px"/></li>
+        {/* TODO: update the 0 to use a state variable */}
       </ul>
     </nav>
   )

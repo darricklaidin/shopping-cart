@@ -1,0 +1,10 @@
+.home-heading {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.home-button-div {
+  display: flex;
+  justify-content: space-evenly;
+}
