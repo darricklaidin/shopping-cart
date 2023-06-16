@@ -1,13 +1,13 @@
-import NavBar from './NavBar'
-import ShoppingCartIcon from './ShoppingCartIcon';
+import NavBar from './components/NavBar'
+import ShoppingCartIcon from './components/ShoppingCartIcon';
 import { Link } from 'react-router-dom';
-import Gap from './Gap';
+import Gap from './components/Gap';
 import './css/Home.css';
 
-const Home = () => {
+const Home = (props) => {
   return (
     <>
-      <NavBar />
+      <NavBar numItemsInCart={props.cartItems.length} />
       <Gap height="100px"/>
       <h1 className='home-heading'>Shopping Cart</h1>
       <Gap height="200px"/>
