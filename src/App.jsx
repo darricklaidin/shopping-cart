@@ -12,13 +12,25 @@ const App = () => {
     { id: 3, name: 'Shoes', price: 40, image: 'https://via.placeholder.com/150' },
     { id: 4, name: 'Hat', price: 10, image: 'https://via.placeholder.com/150' },
   ]
-  const [cartItems, setCartItems] = useState([]) // [ { item: itemObject, quantity: 1 }
+  
+  const [cartItems, setCartItems] = useState(new Map());
+  
+  const addToCart = (item) => {
+    console.log(`Added ${item.name} to cart`);
+    setCartItems((oldCartItems) => {
+      const newCartItems = new Map(oldCartItems);
+      newCartItems.set(item.id, {item: item, quantity: !newCartItems.has(item.id) ? 1 : newCartItems.get(item.id).quantity + 1});
+      return newCartItems;
+    });
+  };
+  
+  console.log(cartItems);
   
   return (
     <Router>
       <Routes>
         <Route exact path="/" element={ <Home cartItems={cartItems} /> } />
-        <Route path="/store" element={ <Store cartItems={cartItems} items={items} /> } />
+        <Route path="/store" element={ <Store cartItems={cartItems} items={items} addToCart={addToCart} /> } />
         <Route path="/cart" element={ <Cart cartItems={cartItems} /> } />
       </Routes>
     </Router>

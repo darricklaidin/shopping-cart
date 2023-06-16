@@ -6,7 +6,7 @@ import './css/Store.css'
 import { useState , useEffect } from 'react'
 
 const Store = (props) => {
-  const { cartItems, items } = props;
+  const { cartItems, items, addToCart } = props;
   const [ searchValue, setSearchValue ] = useState('');
   const [ filteredItems, setFilteredItems ] = useState(items);
   
@@ -27,15 +27,16 @@ const Store = (props) => {
   
   return (
     <>
-      <NavBar numItemsInCart={cartItems.length} />
+      <NavBar numItemsInCart={cartItems.size} />
       <Gap height="100px" />
       <SearchBar updateSearch={updateSearch} />
       <Gap height="100px"/>
       <div className='store-items-container'>
         {filteredItems.map((item) => {
-          return <ItemCard item={item} key={item.id}/>
+          return <ItemCard item={item} key={item.id} addToCart={addToCart} />
         })}
       </div>
+      <Gap height="100px"/>
     </>
   )
 }
