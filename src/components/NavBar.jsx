@@ -1,4 +1,5 @@
 import ShoppingCartIcon from './ShoppingCartIcon'
+import '../css/NavBar.css';
 import { useNavigate } from 'react-router-dom';
 
 const NavBar = (props) => {

@@ -18,7 +18,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route exact path="/" element={ <Home cartItems={cartItems} /> } />
-        <Route path="/store" element={ <Store cartItems={cartItems} /> } />
+        <Route path="/store" element={ <Store cartItems={cartItems} items={items} /> } />
         <Route path="/cart" element={ <Cart cartItems={cartItems} /> } />
       </Routes>
     </Router>

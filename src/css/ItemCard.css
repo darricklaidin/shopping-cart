@@ -1,0 +1,11 @@
+.item-card {
+  outline: 1px solid black;
+  width: 100%;
+  
+  aspect-ratio: 1;
+  text-align: center;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
