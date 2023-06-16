@@ -28,3 +28,25 @@
   padding: 0 100px;
   justify-content: space-evenly;
 }
+
+.store-notification-modal {
+  border: 1px solid black;
+  width: max-content;
+  padding: 10px 20px;
+  
+  position: fixed;
+  
+  bottom: 0;
+  right: 5%;
+  
+  opacity: 0;
+  transition: 0.3s;
+  
+  background-color: white;
+}
+
+.store-notification-modal.enabled {
+  opacity: 1;
+  bottom: 5%;
+  right: 5%;
+}

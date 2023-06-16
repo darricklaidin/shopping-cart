@@ -4,12 +4,18 @@ import { useState } from 'react'
 
 const ItemCard = (props) => {
   const [ isHovered, setIsHovered ] = useState(false);
+  const [ isPressed, setIsPressed ] = useState(false);
+  
+  const handleClick = () => {
+    props.addToCart(props.item);
+    props.sendNotification(props.item);
+  };
   
   return (
     <div className={`item-card`} onMouseEnter={() => {setIsHovered(true)}} onMouseLeave={() => {setIsHovered(false)}}>
       
       <div className={`add-to-cart-overlay ${isHovered ? "hovered" : ""}`}>
-        <button onClick={() => props.addToCart(props.item)}>+</button>
+        <button onClick={handleClick} onMouseDown={() => setIsPressed(true)} onMouseUp={() => setIsPressed(false)} onMouseOut={() => setIsPressed(false)} className={isPressed ? "pressed" : ""}>+</button>
       </div>
       
       <div className="item-card-content">

@@ -49,3 +49,7 @@
   
   aspect-ratio: 1;
 }
+
+.pressed {
+  transform: scale(0.9);
+}

@@ -9,10 +9,26 @@ const Store = (props) => {
   const { cartItems, items, addToCart } = props;
   const [ searchValue, setSearchValue ] = useState('');
   const [ filteredItems, setFilteredItems ] = useState(items);
+  const [ notificationEnabled, setNotificationEnabled ] = useState(false);
+  const [ timeoutID, setTimeoutID ] = useState(null);
+  const [ notificationItemName, setNotificationItemName ] = useState('');
   
   const updateSearch = (event) => {
     setSearchValue(event.target.value);
   }
+  
+  const sendNotification = (item) => {
+    clearTimeout(timeoutID);
+    
+    setNotificationItemName(item.name);
+    setNotificationEnabled(true);
+    
+    const newTimeoutID = setTimeout(() => {
+      setNotificationEnabled(false);
+    }, 3000);
+    
+    setTimeoutID(newTimeoutID);
+  };
   
   useEffect(() => {
     if (searchValue === '') {
@@ -33,10 +49,16 @@ const Store = (props) => {
       <Gap height="100px"/>
       <div className='store-items-container'>
         {filteredItems.map((item) => {
-          return <ItemCard item={item} key={item.id} addToCart={addToCart} />
+          return <ItemCard item={item} key={item.id} addToCart={addToCart} sendNotification={sendNotification} />
         })}
       </div>
       <Gap height="100px"/>
+      
+      {/* Notification Modal */}
+      <div className={`store-notification-modal ${notificationEnabled ? "enabled" : ""}`}>
+        {notificationItemName} added to cart.
+      </div>
+      
     </>
   )
 }
