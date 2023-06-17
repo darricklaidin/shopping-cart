@@ -9,26 +9,52 @@ const Store = (props) => {
   const { cartItems, items, addToCart } = props;
   const [ searchValue, setSearchValue ] = useState('');
   const [ filteredItems, setFilteredItems ] = useState(items);
-  const [ notificationEnabled, setNotificationEnabled ] = useState(false);
-  const [ timeoutID, setTimeoutID ] = useState(null);
-  const [ notificationItemName, setNotificationItemName ] = useState('');
+  const [ notifications, setNotifications]  = useState([]);
   
   const updateSearch = (event) => {
     setSearchValue(event.target.value);
   }
   
   const sendNotification = (item) => {
-    clearTimeout(timeoutID);
+    const newNotification = {id: Date.now(), itemName: item.name, enabled: false};
     
-    setNotificationItemName(item.name);
-    setNotificationEnabled(true);
+    setNotifications((oldNotifications) => {
+      return [...oldNotifications, newNotification];
+    })
     
-    const newTimeoutID = setTimeout(() => {
-      setNotificationEnabled(false);
-    }, 3000);
+    setTimeout(() => {
+      setNotifications((oldNotifications) => {
+        const newNotifications = [...oldNotifications];
+        const lastNotificationIndex = newNotifications.length - 1;
+        if (lastNotificationIndex >= 0) {
+          newNotifications[lastNotificationIndex].enabled = true;
+        }
+        return newNotifications;
+      })
+    }, 100);
     
-    setTimeoutID(newTimeoutID);
   };
+  
+  const removeNotification = (notificationToRemove) => {
+    setNotifications((oldNotifications) => {
+      notificationToRemove.enabled = false;
+      return [...oldNotifications];
+    });
+    
+    setTimeout(() => {
+      setNotifications((oldNotifications) => {
+        return oldNotifications.filter((notification) => notification.id !== notificationToRemove.id)
+      });
+    }, 300);
+  }
+  
+  useEffect(() => {
+    notifications.forEach((notification) => {
+      setTimeout(() => {
+        removeNotification(notification);
+      }, 3000);
+    });
+  }, [notifications]);
   
   useEffect(() => {
     if (searchValue === '') {
@@ -54,10 +80,11 @@ const Store = (props) => {
       </div>
       <Gap height="100px"/>
       
-      {/* Notification Modal */}
-      <div className={`store-notification-modal ${notificationEnabled ? "enabled" : ""}`}>
-        {notificationItemName} added to cart.
-      </div>
+      {notifications.map((notification) => {
+        return <div key={notification.id} className={`store-notification-modal ${notification.enabled ? "enabled" : ""}`}>
+          {notification.itemName} added to cart.
+        </div>
+      })}
       
     </>
   )
