@@ -16,9 +16,8 @@ const Store = (props) => {
   }
   
   const sendNotification = (item) => {
-    const newNotification = {id: Date.now(), itemName: item.name, enabled: false};
-    
     setNotifications((oldNotifications) => {
+      const newNotification = {id: Date.now(), itemName: item.name, enabled: false};
       return [...oldNotifications, newNotification];
     })
     
@@ -69,7 +68,7 @@ const Store = (props) => {
   
   return (
     <>
-      <NavBar numItemsInCart={cartItems.size} />
+      <NavBar numItemsInCart={cartItems.size} currentPage="store" />
       <Gap height="100px" />
       <SearchBar updateSearch={updateSearch} />
       <Gap height="100px"/>

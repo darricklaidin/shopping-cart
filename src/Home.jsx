@@ -7,7 +7,7 @@ import './css/Home.css';
 const Home = (props) => {
   return (
     <>
-      <NavBar numItemsInCart={props.cartItems.size} />
+      <NavBar numItemsInCart={props.cartItems.size} currentPage={"home"} />
       <Gap height="200px"/>
       <h1 className='home-heading'>Shopping Cart</h1>
       <Gap height="200px"/>
