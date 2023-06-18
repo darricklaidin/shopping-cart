@@ -15,9 +15,23 @@ const Store = (props) => {
     setSearchValue(event.target.value);
   }
   
-  const sendNotification = (item) => {
+  const removeNotification = (notificationToRemove) => {
     setNotifications((oldNotifications) => {
-      const newNotification = {id: Date.now(), itemName: item.name, enabled: false};
+      notificationToRemove.enabled = false;
+      return [...oldNotifications];
+    });
+    
+    setTimeout(() => {
+      setNotifications((oldNotifications) => {
+        return oldNotifications.filter((notification) => notification.id !== notificationToRemove.id)
+      });
+    }, 300);
+  }
+  
+  const sendNotification = (item) => {
+    const newNotification = {id: Date.now(), itemName: item.name, enabled: false};
+    
+    setNotifications((oldNotifications) => {
       return [...oldNotifications, newNotification];
     })
     
@@ -32,28 +46,10 @@ const Store = (props) => {
       })
     }, 100);
     
-  };
-  
-  const removeNotification = (notificationToRemove) => {
-    setNotifications((oldNotifications) => {
-      notificationToRemove.enabled = false;
-      return [...oldNotifications];
-    });
-    
     setTimeout(() => {
-      setNotifications((oldNotifications) => {
-        return oldNotifications.filter((notification) => notification.id !== notificationToRemove.id)
-      });
-    }, 300);
-  }
-  
-  useEffect(() => {
-    notifications.forEach((notification) => {
-      setTimeout(() => {
-        removeNotification(notification);
-      }, 3000);
-    });
-  }, [notifications]);
+      removeNotification(newNotification);
+    }, 3000);
+  };
   
   useEffect(() => {
     if (searchValue === '') {
