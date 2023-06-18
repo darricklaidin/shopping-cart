@@ -4,14 +4,10 @@ import Home from './Home'
 import Store from './Store'
 import Cart from './Cart'
 import { useState } from 'react';
+import { data } from './data';
 
 const App = () => {
-  const items = [
-    { id: 1, name: 'Shirt', price: 20, image: 'https://via.placeholder.com/150' },
-    { id: 2, name: 'Pants', price: 30, image: 'https://via.placeholder.com/150' },
-    { id: 3, name: 'Shoes', price: 40, image: 'https://via.placeholder.com/150' },
-    { id: 4, name: 'Hat', price: 10, image: 'https://via.placeholder.com/150' },
-  ]
+  const items = data;
   
   const [cartItems, setCartItems] = useState(new Map());
   
@@ -24,14 +20,32 @@ const App = () => {
     });
   };
   
-  console.log(cartItems);
+  const deleteCartItem = (item) => {
+    setCartItems((oldCartItems) => {
+      const newCartItems = new Map(oldCartItems);
+      newCartItems.delete(item.id);
+      return newCartItems;
+    })
+  };
+  
+  const updateCartItemQuantity = (item, newQuantity) => {
+    if (newQuantity < 0) {
+      newQuantity = 0;
+    }
+    
+    setCartItems((oldCartItems) => {
+      oldCartItems.set(item.id, {item: item, quantity: newQuantity});
+      return new Map(oldCartItems);
+    });
+    console.log(`Updated ${item.name} quantity to ${newQuantity}`);
+  };
   
   return (
     <Router>
       <Routes>
         <Route exact path="/" element={ <Home cartItems={cartItems} /> } />
         <Route path="/store" element={ <Store cartItems={cartItems} items={items} addToCart={addToCart} /> } />
-        <Route path="/cart" element={ <Cart cartItems={cartItems} /> } />
+        <Route path="/cart" element={ <Cart cartItems={cartItems} deleteCartItem={deleteCartItem} updateCartItemQuantity={updateCartItemQuantity} /> } />
       </Routes>
     </Router>
   );
