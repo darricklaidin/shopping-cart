@@ -63,7 +63,7 @@ const Store = (props) => {
   }, [items, searchValue]);  
   
   return (
-    <>
+    <div className='store-container'>
       <NavBar numItemsInCart={cartItems.size} currentPage="store" />
       <Gap height="100px" />
       <SearchBar updateSearch={updateSearch} />
@@ -81,7 +81,7 @@ const Store = (props) => {
         </div>
       })}
       
-    </>
+    </div>
   )
 }
 

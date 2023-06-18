@@ -50,3 +50,8 @@
   bottom: 5%;
   right: 5%;
 }
+
+.store-container {
+  overflow-y: scroll;
+  height: 100dvh;
+}
