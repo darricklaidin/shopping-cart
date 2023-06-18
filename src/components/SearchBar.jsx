@@ -1,4 +1,4 @@
-import SearchIcon from './SearchIcon'
+import SearchIcon from './icons/SearchIcon'
 
 const SearchBar = (props) => {
   return (

@@ -1,4 +1,4 @@
-import ShoppingCartIcon from './ShoppingCartIcon'
+import ShoppingCartIcon from './icons/ShoppingCartIcon'
 import '../css/NavBar.css';
 import { useNavigate } from 'react-router-dom';
 

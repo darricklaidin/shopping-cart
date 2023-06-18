@@ -1,5 +1,5 @@
 import NavBar from './components/NavBar'
-import ShoppingCartIcon from './components/ShoppingCartIcon';
+import ShoppingCartIcon from './components/icons/ShoppingCartIcon';
 import { Link } from 'react-router-dom';
 import Gap from './components/Gap';
 import './css/Home.css';
